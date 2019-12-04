@@ -1,0 +1,34 @@
+---
+title: "Welcome to the tidyverse"
+author: 
+- "Markus List (<markus.list@wzw.tum.de>)</br></br>Head of the Big Data in BioMedicine Group</br>Chair of Experimental Bioinformatics</br>Technical University of Munich</br></br><https://biomedical-big-data.de></br>"
+date: "05.12.2019"
+output: ioslides_presentation
+logo: ../tum.png
+css: ../biomedbigdata.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Challenge
+
+Build a heatmap of promotors / CpG islands from BLUEPRINT methylation data.
+
+```{r, eval = FALSE}
+library(DeepBlueR)
+library(gplots)
+```
+
+Useful commands:
+
+- deepblue_list_experiments
+- deepblue_extract_names
+- deepblue_select_column
+- deepblue_select_annotation
+- deepblue_score_matrix
+- deepblue_download_request_data
+- heatmap.2
+
+Bonus challenge: use 5kb tiling regions instead.

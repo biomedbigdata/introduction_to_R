@@ -1,0 +1,36 @@
+.gdbar img {
+  width: 94px !important;
+  height: 59px !important;
+}
+
+.gdbar{
+  background: #0065bd !important;  
+}
+
+.title-slide{
+  background-image: url("biomedbigdata_logo.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: right 200px bottom 240px;
+  background-size: 200px 200px;
+}
+
+
+slides > slide:not(.nobackground):before {
+  width: 94px;
+  height: 59px;
+  background-size: 94px 59px;
+}
+
+slides > slide {
+  background-size: 94px 59px;
+  background-image: url("biomedbigdata_logo.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: right 200px top 80px;
+  background-size: 100px 100px;
+}
+
+pre {
+  font-size: 20px;
+}

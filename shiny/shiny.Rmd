@@ -1,0 +1,113 @@
+---
+title: "Introduction to R"
+author: 
+- "Markus List (<markus.list@wzw.tum.de>)</br></br>Head of the Big Data in BioMedicine Group</br>Chair of Experimental Bioinformatics</br>Technical University of Munich</br></br><https://biomedical-big-data.de></br>"
+date: "05.12.2019"
+output: ioslides_presentation
+logo: ../tum.png
+css: ../biomedbigdata.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Shiny
+
+- turn R scripts into interactive web applications
+- make package functionality available to non-programmers
+- visualize data / results
+- filter data / results
+- much easier than a traditional web framework
+- many examples, great community
+- issue: no multi-user support
+
+## Structure
+
+Shiny apps are contained in a single script called app.R. 
+
+app.R has three components:
+
+ - a user interface object
+ - a server function
+ - a call to the shinyApp function
+
+## ui
+
+```{r, eval = FALSE, echo = TRUE}
+library(shiny)
+# Define UI for app that draws a histogram ----
+ui <- fluidPage(
+  # App title ----
+  titlePanel("Hello Shiny!"),
+  # Sidebar layout with input and output definitions ----
+  sidebarLayout(
+    # Sidebar panel for inputs ----
+    sidebarPanel(
+      # Input: Slider for the number of bins ----
+      sliderInput(inputId = "bins", label = "#bins:", min = 1, max = 50, value = 30)),
+    # Main panel for displaying outputs ----
+    mainPanel(
+      # Output: Histogram ----
+      plotOutput(outputId = "distPlot")
+    )))
+```
+
+## server
+
+```{r, echo = TRUE, eval = FALSE}
+server <- function(input, output) {
+  output$distPlot <- renderPlot({
+
+    x    <- faithful$waiting
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+    hist(x, breaks = bins, col = "#75AADB", border = "white",
+         xlab = "Waiting time to next eruption (in mins)",
+         main = "Histogram of waiting times")
+    })}
+```
+
+## run the app
+
+```{r, echo = TRUE, eval = FALSE}
+library(shiny)
+ui <- ...
+
+server <- ...
+
+shinyApp(ui = ui, server = server)
+```
+
+or 
+
+```{r, echo = TRUE, eval = FALSE}
+library(shiny)
+runApp("directory")
+```
+
+## Examples
+
+Shiny has 11 built in examples
+
+```{r, echo = TRUE, eval = FALSE}
+library(shiny)
+runExample("01_hello")
+```
+
+
+## Challenge
+
+Build a shiny app that uses your package to
+
+- load a tabula muris FACS file
+- visualizes the fist two principle components
+- think of other useful plots
+
+Alternative: be creative!
+
+Bonus tasks:
+
+- uses the top 500 most variable genes and plot a heatmap
+- show a table that allows you to filter expression values
+- use cell type annotation to color the cells

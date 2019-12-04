@@ -1,0 +1,156 @@
+---
+title: "R packages"
+author: 
+- "Markus List (<markus.list@wzw.tum.de>)</br></br>Head of the Big Data in BioMedicine Group</br>Chair of Experimental Bioinformatics</br>Technical University of Munich</br></br><https://biomedical-big-data.de></br>"
+date: "05.12.2019"
+output: ioslides_presentation
+logo: ../tum.png
+css: ../biomedbigdata.css
+---
+
+```{r setup, include=FALSE}
+```
+
+## Introduction 
+
+  - In R, the fundamental unit of shareable code is the package.
+  - A package bundles together code, data, documentation, and tests
+  - Packages are easy to share with others. 
+  - This huge variety of packages is one of the reasons that R is so successful
+
+  - Install from CRAN with `install.packages("x")`.
+  - Use `library("x")`.
+  - Help `package?x` and `help(package = "x")`.
+
+## Why
+
+  - Share code in a usable format
+  - Save time with conventions
+
+## Philosophy 
+
+  - Anything that can be automated, should be automated. 
+  - Devtools package to simplify development
+
+## Package states
+
+When you create or modify a package, you work on its "source code" or "source files". This is NOT the package form you are most familiar with from day-to-day usage. Package development workflows make much more sense if you understand the five states an R package can be in:
+
+  * source
+  * bundled
+  * binary
+  * installed
+  * in-memory
+  
+## Package libraries 
+
+In R, a __library__ is a directory containing installed packages,
+
+> We use the `library()` function to load a __package__. 
+
+The distinction between the two is important and useful as you get involved in package development.
+
+You can have multiple libraries on your computer. 
+
+```{r, eval = TRUE}
+.libPaths()
+unlist(lapply(lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE), length))
+```
+
+## Prepare your system 
+
+```{r, eval = FALSE}
+install.packages(c("devtools", "roxygen2", "testthat", "knitr"))
+```
+
+> Do this now please!
+
+## Loading source code from a package
+Example of how to simulate installing and loading a package, during interactive development:
+
+```{r eval = FALSE}
+library(devtools)
+load_all()
+```
+
+### Personal startup configuration
+
+```{r, eval = FALSE}
+library(devtools)
+```
+
+## R build toolchain
+
+To be fully capable of building R packages from source that contain C, C++ or Fortran code, you'll also need a compiler and a few other command line tools. 
+
+- Windows: install Rtools from <https://cran.r-project.org/bin/windows/Rtools/> and run the installer.
+- macOS: install the Xcode command line tools, which requires that you [register as an Apple developer](https://developer.apple.com/programs/register/) 
+
+Then, in the shell, do:
+
+```shell
+xcode-select --install
+```
+
+- linux: install R development tools. For example, on Ubuntu (and Debian) you need to install the `r-base-dev` package.
+
+## Verify system prep
+
+You can check that you have everything installed and working by running the following code:
+
+```{r, eval = TRUE}
+library(devtools)
+has_devel()
+```
+
+## Package structure
+
+- Code (R/)
+- Package metadata (DESCRIPTION)
+- Object documentation (man/)
+- Vignettes (vignettes/)
+- Testing (tests/)
+- Namespaces (NAMESPACE)
+- Data (data/)
+- Compiled code (src/)
+- Installed files (inst/)
+
+## Making code available
+
+- version control system
+- example: git, gitlab, github
+- shinyapps.io
+
+## Testing
+
+- good code comes with unit tests
+- rule of thumb is to have more tests than actual code
+- test whatever you can think of!
+- testthat R package supports you in proper testing
+
+```{r}
+usethis::use_test("name")
+```
+
+
+## More literature
+
+<http://r-pkgs.had.co.nz/>
+
+## Live Example
+
+Fingers crossed
+
+## Challenge:
+
+Create an R package with the following functions
+
+```{r, echo = TRUE, eval = FALSE}
+read_tabula_muris <- function(file){ ... }
+
+plot_pca <- function(counts, pc_1, pc_2){ ... }
+
+convert_to_sce <- function(counts) { #return a SingleCellExperiment}
+
+convert_cell_ids <- function(counts) { #extract meta data from cell ids}
+```
